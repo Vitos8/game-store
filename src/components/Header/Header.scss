@@ -1,0 +1,52 @@
+.header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding: 30px 0px;
+    
+    &__logo-row{
+        display: flex;
+        align-items: center;
+        border-radius: 10px;
+        padding: 0px 15px 15px 15px;
+        transition: all .3s ease;
+        &:hover{
+            box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;     
+        }
+    }
+
+    &__title{
+        font-size: 22px;
+        margin-top: 10px;
+        text-transform: uppercase;
+        background-image: linear-gradient(
+            -225deg,
+            #4321bf 0%,
+            #7b51a7 29%,
+            #ff1361 67%,
+            #fff800 100%
+        );
+        background-size: auto auto;
+        background-clip: border-box;
+        background-size: 200% auto;
+        color: #fff;
+        background-clip: text;
+        text-fill-color: transparent;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: textclip 2s linear infinite;
+        display: inline-block;
+        }
+
+        @keyframes textclip {
+        to {
+            background-position: 200% center;
+        }
+    }
+
+    &__logo{
+        width: 60px;
+        margin-right: 10px;
+    }
+}

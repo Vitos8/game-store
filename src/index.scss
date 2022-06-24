@@ -1,0 +1,115 @@
+
+.game-store{
+     
+     .container{
+          max-width: 1180px;
+          margin: 0 auto;
+          padding: 0 40px;
+          position: relative;
+
+     }
+
+     .order{
+          min-height: calc(100vh - 293px);
+     } 
+
+     .goBack{
+          display: flex;
+          justify-content: center;
+          margin-left: 35px;
+          margin-bottom: 20px;
+
+          &__btn{
+               cursor: pointer;
+               padding: 15px 0px;
+               text-align: center;
+               width: 119px;
+               font-size: 16px;
+               border: none;
+               color: #fff;
+          }
+     }
+
+     .footer{
+          padding: 35px;
+          background-color: rgb(74, 74, 74);
+          margin-top: 50px;
+
+          &__title{
+               font-size: 22px;
+               text-align: center;
+          }
+     }
+}          
+
+
+
+
+
+
+@media screen and (max-width: 550px) {
+     .game-store{
+          .container{
+               padding: 0px 15px;
+          }
+
+          .footer{
+               &__title{
+                    font-size: 18px;
+               }
+          }
+     }
+     .games__item-genre{
+          margin-bottom: 10px; 
+     }
+
+     .header{
+
+          &__title{
+               font-size: 18px;
+          }
+          &__logo{
+               width: 50px;
+          }
+     }
+}
+
+
+
+//Loader
+.lds-ring {
+     display: inline-block;
+     position: relative;
+     width: 80px;
+     height: 80px;
+     margin: 20px 0px 20px 50px;
+   }
+   .lds-ring div {
+     box-sizing: border-box;
+     display: block;
+     position: absolute;
+     width: 64px;
+     height: 64px;
+     margin: 8px;
+     border: 8px solid #000;
+     border-radius: 50%;
+     animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+     border-color: rgb(49, 143, 220) transparent transparent transparent;
+   }
+   .lds-ring div:nth-child(1) {
+     animation-delay: -0.45s;
+   }
+   .lds-ring div:nth-child(2) {
+     animation-delay: -0.3s;
+   }
+   .lds-ring div:nth-child(3) {
+     animation-delay: -0.15s;
+   }
+   @keyframes lds-ring {
+     0% {
+       transform: rotate(0deg);
+     }
+     100% {
+       transform: rotate(360deg);
+     }
+   }
