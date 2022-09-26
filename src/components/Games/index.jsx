@@ -21,8 +21,13 @@ const Games = ({data, paginate, active}) => {
 
     return (
     <>
+    <div className="pagination">
+        {pagination.map(item =>(
+            <div key={item.id} onClick={() => paginate(item.page)} className="paginate">{item.id}</div>
+        ))}
+    </div> 
     <div className="games">
-        {data ? data.map((game, id) => (
+        {data && data.map((game, id) => (
             <div onClick={(e) => active(game, e)} key={id} className="games__item">
                 <img src={game.image} alt="img" className="games__item-img" />
                 <div className="games__item-row">
@@ -38,14 +43,8 @@ const Games = ({data, paginate, active}) => {
                     </div>
                 </div>
             </div>
-        )) :
-        <Loading/>}
+        ))}
     </div>
-    <div className="pagination">
-            {pagination.map(item =>(
-                <div key={item.id} onClick={() => paginate(item.page)} className="paginate">{item.id}</div>
-            ))}
-        </div> 
     </>
     );
 };

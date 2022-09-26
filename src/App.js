@@ -7,18 +7,14 @@ import Header from "./components/Header";
 import Games from "./components/Games";
 import Order from "./components/Order";
 import GamePage from "./components/Games/GamePage/index";
+import {URL} from "./consts/consts";
+import Loading from "./components/Games/Loading";
 
 function App() {
     const [games, setGames] = useState(null);
     const [loading, setLoading] = useState(false);
     const [active, setActive] = useState(null);
     let navigate = useNavigate();
-
-
-    const API = '0c87644384c949b1b4fc1c5e98f4b806';
-    const URL = `https://api.rawg.io/api/games?key=${API}`;
-
-    
 
     let getApi = (data) => {
         let items = [];
@@ -42,19 +38,20 @@ function App() {
     };
 
     useEffect(() => {
-        
+        setLoading(true);
         axios.get(`${URL}&page=2`).then((res )=>{
-            
             let newData = [...res.data.results];
             getApi(newData);
+            setLoading(false);
         });
-
     }, []);
 
     let paginate = (page) => {
+        setLoading(true);
         axios.get(`${URL}&page=${page}`).then(({data}) => {
             let newData = [...data.results];
             getApi(newData);
+            setLoading(false);
         })
     };
 
@@ -64,6 +61,7 @@ function App() {
         navigate('/game/' + game.name);
     };
 
+    if (loading ) return <Loading/>;
     
     return (
                 <div className="app">
