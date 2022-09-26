@@ -14,12 +14,11 @@ function App() {
     const [games, setGames] = useState(null);
     const [loading, setLoading] = useState(false);
     const [active, setActive] = useState(null);
+    const [activePage, setActivePage] = useState(1);
     let navigate = useNavigate();
 
     let getApi = (data) => {
-        let items = [];
-
-        data.map(item => {
+        let list = data.map(item => {
             let newItem = {
                 name: item.name,
                 image: item.background_image,
@@ -30,11 +29,9 @@ function App() {
                     genre: [...item.genres]
                 }
             }
-
-            items.push(newItem);
+            return newItem;
         });
-        
-        setGames(items);
+          setGames(list);
     };
 
     useEffect(() => {
@@ -43,11 +40,14 @@ function App() {
             let newData = [...res.data.results];
             getApi(newData);
             setLoading(false);
+        }).catch((err) => {
+          alert(err);
         });
     }, []);
 
-    let paginate = (page) => {
+    let paginate = (page, id) => {
         setLoading(true);
+        setActivePage(id);
         axios.get(`${URL}&page=${page}`).then(({data}) => {
             let newData = [...data.results];
             getApi(newData);
@@ -69,7 +69,7 @@ function App() {
                         <div className="container">
                         <Header />
                         <Routes>
-                            <Route path="/" element={<Games active={onGame} paginate={paginate} data={games} />} />
+                            <Route path="/" element={<Games activePage={activePage} active={onGame} paginate={paginate} data={games} />} />
                             <Route path="/Order" element={<Order />} />
                             <Route path="/game/:title" element={<GamePage game={active} />} />
                         </Routes>
