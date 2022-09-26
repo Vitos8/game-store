@@ -1,6 +1,8 @@
-import React,{useState} from "react";
+import React from "react";
 import Button from "./Button";
 import "./Games.scss";
+import Loading from "./Loading";
+import SkeletonGame from "./SkeletonGame";
 
 let pagination = [
     {
@@ -16,7 +18,7 @@ let pagination = [
         page:11
     }]
 
-const Games = ({data, paginate, active, activePage}) => {
+const Games = ({data, paginate, active, activePage, loading}) => {
 
   let onPaginate = async(id, page) => {
       await paginate(page, id);
@@ -30,9 +32,10 @@ const Games = ({data, paginate, active, activePage}) => {
           ))}
       </div> 
       <div className="games">
-          {data && data.map((game, id) => (
+          {data ? data.map((game, id) => (
+            !loading ? 
               <div onClick={(e) => active(game, e)} key={id} className="games__item">
-                  <img src={game.image} alt="img" className="games__item-img" />
+                  <img src={game.image} alt="img" className="games__item-img" loading="lazy" />
                   <div className="games__item-row">
                       <h3 className="games__item-title">{game.name}</h3>
                       <div className="games__item-genres">
@@ -41,12 +44,12 @@ const Games = ({data, paginate, active, activePage}) => {
                       ))}
                       </div>
                       <div className="games__item-info">
-                          <div className="games__item-price">{game.price} $</div>
+                          <div className="games__item-price">{game.price + '$'}</div>
                           <Button item={game}/>
                       </div>
                   </div>
-              </div>
-          ))}
+              </div> : <SkeletonGame/>
+          )) : <Loading/>}
       </div>
     </>
     );

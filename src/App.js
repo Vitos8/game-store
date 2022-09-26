@@ -31,7 +31,7 @@ function App() {
             }
             return newItem;
         });
-          setGames(list);
+        setGames(list);
     };
 
     useEffect(() => {
@@ -43,6 +43,7 @@ function App() {
         }).catch((err) => {
           alert(err);
         });
+
     }, []);
 
     let paginate = (page, id) => {
@@ -61,7 +62,7 @@ function App() {
         navigate('/game/' + game.name);
     };
 
-    if (loading ) return <Loading/>;
+    
     
     return (
                 <div className="app">
@@ -69,7 +70,7 @@ function App() {
                         <div className="container">
                         <Header />
                         <Routes>
-                            <Route path="/" element={<Games activePage={activePage} active={onGame} paginate={paginate} data={games} />} />
+                            <Route path="/" element={<Games loading={loading} activePage={activePage} active={onGame} paginate={paginate} data={games} />} />
                             <Route path="/Order" element={<Order />} />
                             <Route path="/game/:title" element={<GamePage game={active} />} />
                         </Routes>

@@ -6,6 +6,7 @@ import './Normalize.scss';
 import { Provider } from "react-redux";
 import { store } from "./redux";
 import {BrowserRouter as Router} from "react-router-dom";
+import 'react-loading-skeleton/dist/skeleton.css';
 
   
 const root = ReactDOM.createRoot(document.getElementById('root'));
