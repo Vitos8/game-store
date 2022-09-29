@@ -34,7 +34,7 @@ const Games = ({data, paginate, active}) => {
                     </div>
                     <div className="games__item-info">
                         <div className="games__item-price">{game.price} $</div>
-                        <Button item={game}/>
+                        <Button item={game} itemIndex={id}/>
                     </div>
                 </div>
             </div>

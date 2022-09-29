@@ -6,12 +6,9 @@ import { deleteAllItems} from "../../redux/cart/reducer";
 
 const GoBack = () => {
     let navigate = useNavigate();
-    const dispatch = useDispatch();
-
 
     let goBack = () => {
         navigate(-1);
-        dispatch(deleteAllItems())
     };
 
     return (

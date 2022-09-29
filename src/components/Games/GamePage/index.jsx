@@ -3,13 +3,16 @@ import Button from "../Button";
 import GoBack from "../../Order/GoBack";
 import { Carousel } from 'react-carousel-minimal';
 import "./GamePage.scss";
+import { useSelector } from "react-redux";
 
-const GamePage = ({game}) => {
+const GamePage = ({id}) => {
+    let games = useSelector(state => state.dataGames.data);
+    let game = games.find(item => item.id === id);
 
     let images = [];
-    game.photos.map(photo => {
+    game?.photos.map(photo => {
         let item = {
-            image: photo.image 
+            image: photo?.image 
         }
         return images.push(item);
     })
@@ -24,7 +27,7 @@ const GamePage = ({game}) => {
         <GoBack/>
         <div className="game-page">
             <div className="row">
-                <Carousel
+            {game && <Carousel
                     data={images}
                     time={3000}
                     width="800px"
@@ -45,20 +48,20 @@ const GamePage = ({game}) => {
                         maxWidth: "850px",
                         maxHeight: "400px",
                     }}
-                    />
-                </div>
-            <div  key={game.id} className="games__item">
-                    <img src={game.image} alt="img" className="games__item-img" />
+                    />}                
+            </div>  
+            <div  onClick={e => e.preventDefault()} key={game?.id} className="games__item">
+                    <img src={game?.image} alt="img" className="games__item-img" />
                     <div className="games__item-row">
-                        <h3 className="games__item-title">{game.name}</h3>
+                        <h3 className="games__item-title">{game?.name}</h3>
                         <div className="games__item-genres">
-                        {game.genres.genre.map((Genre, index) => (
-                            <div key={index} className="games__item-genre">{Genre.name}</div>
+                        {game?.genres.genre.map((Genre, index) => (
+                            <div key={index} className="games__item-genre">{Genre?.name}</div>
                         ))}
                         </div>
                         <div className="games__item-info">
-                            <div className="games__item-price">{game.price} $</div>
-                            <Button item={game}/>
+                            <div className="games__item-price">{game?.price} $</div>
+                            <Button item={game && game}/>
                         </div>
                     </div>
                 </div>

@@ -1,28 +1,26 @@
 import {React, useState }from 'react'
 import { deleteItemFromCart, setItemInCart } from "../../redux/cart/reducer";
 import { useDispatch } from "react-redux";
+import {changeInCartValue} from "../../redux/dataGames/dataGamesSlice";
 
 
 function Button({item}) {
-    const [value, setValue] = useState( item.inCart);
     const dispatch = useDispatch();
 
     let addItem = (item, e) => {
-        let Value = true;
-        setValue(Value);
         dispatch(setItemInCart(item));
+        dispatch(changeInCartValue(item.id));
         e.stopPropagation();
     };
 
     let removeItem = (item, e) => {
-        let Value = false;
-        setValue(Value);
-        dispatch(deleteItemFromCart(item));
+        dispatch(deleteItemFromCart(item)); 
+        dispatch(changeInCartValue(item.id));
         e.stopPropagation();
     };
         
     return (
-        !value ?  <div onClick={(e) => addItem(item, e)} className="games__item-btn">Add to cart</div> :
+        !item?.inCart ?  <div onClick={(e) => addItem(item, e)} className="games__item-btn">Add to cart</div> :
         <div onClick={(e) => removeItem(item, e)} className="games__item-btn remove">Remove from cart</div> 
     )
 }
