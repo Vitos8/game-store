@@ -13,6 +13,7 @@ import GamePage from "./components/Games/GamePage/index";
 function App() {
     const [loading, setLoading] = useState(false);
     const [active, setActive] = useState(null);
+    const [activePage, setActivePage] = useState(1);
     let navigate = useNavigate();
     let dispatch = useDispatch();
     let games = useSelector(state => state.dataGames.data);
@@ -40,16 +41,23 @@ function App() {
     };
 
     useEffect(() => {
+        setLoading(true);
         axios.get(`${URL}&page=2`).then((res )=>{
             let newData = [...res.data.results];
             getApi(newData);
+            setLoading(false);
+        }).catch((err) => {
+            alert(err);
         });
     }, []);
 
-    let paginate = (page) => {
+    let paginate = (page, id) => {
+        setLoading(true);
+        setActivePage(id);
         axios.get(`${URL}&page=${page}`).then(({data}) => {
             let newData = [...data.results];
             getApi(newData);
+            setLoading(false);
         })
     };
 
@@ -57,7 +65,7 @@ function App() {
         setActive(game.id);
         e.preventDefault();
         navigate('/game/' + game.name);
-    };
+    }
     
     return (
                 <div className="app">
@@ -65,9 +73,9 @@ function App() {
                         <div className="container">
                         <Header />
                         <Routes>
-                            <Route path="/" element={<Games active={onGame} paginate={paginate} data={games} />} />
+                            <Route path="/" element={<Games loading={loading} activePage={activePage} active={onGame} paginate={paginate} data={games} />} />
                             <Route path="/Order" element={<Order />} />
-                            <Route path="/game/:title" element={<GamePage id={active} />} />
+                            <Route path="/game/:title" element={ <GamePage id={active} />} />
                         </Routes>
                         </div>
                         <div className="footer">

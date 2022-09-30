@@ -2,10 +2,9 @@ import React from "react";
 import Button from "./Button";
 import "./Games.scss";
 import Loading from "./Loading";
+import SkeletonGame from "./SkeletonGame";
 
-const Games = ({data, paginate, active}) => {
-    
-    let pagination = [
+let pagination = [
     {
         id:1,
         page:2
@@ -19,10 +18,23 @@ const Games = ({data, paginate, active}) => {
         page:11
     }]
 
+const Games = ({data, paginate, active, activePage, loading}) => {
+
+  let onPaginate = async(id, page) => {
+    await paginate(page, id);
+  }
+
+  if (data.length === 0 ) return <Loading/>;
+
     return (
     <>
+    <div className="pagination">
+      {pagination.map(item =>(
+          <div key={item.id} onClick={() => onPaginate(item.id, item.page)} className={`paginate ${activePage === item.id ? "active" : ''}`} >{item.id}</div>
+      ))}
+    </div> 
     <div className="games">
-        {data ? data.map((game, id) => (
+        {!loading ? data.map((game, id) => (
             <div onClick={(e) => active(game, e)} key={id} className="games__item">
                 <img src={game.image} alt="img" className="games__item-img" />
                 <div className="games__item-row">
@@ -39,13 +51,8 @@ const Games = ({data, paginate, active}) => {
                 </div>
             </div>
         )) :
-        <Loading/>}
+        data.map(item => <SkeletonGame key={item.id} />) }
     </div>
-    <div className="pagination">
-            {pagination.map(item =>(
-                <div key={item.id} onClick={() => paginate(item.page)} className="paginate">{item.id}</div>
-            ))}
-        </div> 
     </>
     );
 };

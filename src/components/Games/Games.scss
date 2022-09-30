@@ -93,6 +93,7 @@
     display: flex;
     justify-content: center;
     column-gap: 60px;
+    padding-bottom: 50px;
 
     .paginate{
         font-size: 19px;
@@ -108,5 +109,9 @@
         &:active{
             opacity: 0.7;
         }
+    }
+
+    .active{
+        background-color: red;
     }
 }
